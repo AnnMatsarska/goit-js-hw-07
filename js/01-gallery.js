@@ -24,14 +24,17 @@ container.insertAdjacentHTML('beforeend', markup);
 
 function onClick(evt) {
   evt.preventDefault();
+  if (evt.target === evt.currentTarget) {
+    return;
+  }
   const instance = basicLightbox.create(`
    <img src="${evt.target.dataset.source}" width="800" height="600"> `);
 
   instance.show();
-
-  container.addEventListener('keydown', e => {
-    if (e.code === 'Escape') {
-      instance.close();
-    }
-  });
 }
+
+container.addEventListener('keydown', e => {
+  if (e.code === 'Escape') {
+    instance.close();
+  }
+});
